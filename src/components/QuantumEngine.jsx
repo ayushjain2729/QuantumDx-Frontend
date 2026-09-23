@@ -1182,24 +1182,51 @@ export default function QuantumEngine() {
               </div>
 
               {/* Clean Interactive SVG Plot */}
-              <div style={{ position: "relative", width: "100%", height: "260px", background: "rgba(11, 17, 32, 0.8)", borderRadius: "10px", padding: "16px", border: "1px solid var(--border-subtle)" }}>
-                <svg width="100%" height="100%" viewBox="0 0 320 220" preserveAspectRatio="none">
-                  {/* Grid Lines */}
-                  {[0, 0.25, 0.5, 0.75, 1.0].map(v => {
-                    const y = 190 - v * 160;
-                    const x = 30 + v * 260;
+              <div style={{ position: "relative", width: "100%", height: "270px", background: "rgba(11, 17, 32, 0.8)", borderRadius: "10px", padding: "12px", border: "1px solid var(--border-subtle)" }}>
+                <svg width="100%" height="100%" viewBox="0 0 340 225">
+                  {/* Y-Axis Label (Positioned cleanly on the left with zero overlap) */}
+                  <text
+                    transform="rotate(-90)"
+                    x="-97.5"
+                    y="15"
+                    fill="var(--text-muted)"
+                    fontSize="11"
+                    fontWeight="600"
+                    textAnchor="middle"
+                    letterSpacing="0.4"
+                  >
+                    True Positive Rate
+                  </text>
+
+                  {/* X-Axis Label */}
+                  <text
+                    x="185"
+                    y="218"
+                    fill="var(--text-muted)"
+                    fontSize="11"
+                    fontWeight="600"
+                    textAnchor="middle"
+                    letterSpacing="0.4"
+                  >
+                    False Positive Rate (1 - Specificity)
+                  </text>
+
+                  {/* Grid Lines & Ticks */}
+                  {[0, 0.2, 0.4, 0.6, 0.8, 1.0].map(v => {
+                    const y = 175 - v * 155;
+                    const x = 55 + v * 260;
                     return (
                       <React.Fragment key={v}>
-                        <line x1="30" y1={y} x2="290" y2={y} stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3,3" />
-                        <line x1={x} y1="30" x2={x} y2="190" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3,3" />
-                        <text x="24" y={y + 3} fill="var(--text-muted)" fontSize="9" textAnchor="end">{v.toFixed(1)}</text>
-                        <text x={x} y="204" fill="var(--text-muted)" fontSize="9" textAnchor="middle">{v.toFixed(1)}</text>
+                        <line x1="55" y1={y} x2="315" y2={y} stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3,3" />
+                        <line x1={x} y1="20" x2={x} y2="175" stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3,3" />
+                        <text x="48" y={y + 3.5} fill="var(--text-muted)" fontSize="10" textAnchor="end" fontFamily="system-ui, sans-serif">{v.toFixed(1)}</text>
+                        <text x={x} y="193" fill="var(--text-muted)" fontSize="10" textAnchor="middle" fontFamily="system-ui, sans-serif">{v.toFixed(1)}</text>
                       </React.Fragment>
                     );
                   })}
 
                   {/* Diagonal Chance Line (0,0 -> 1,1) */}
-                  <line x1="30" y1="190" x2="290" y2="30" stroke="rgba(255, 255, 255, 0.2)" strokeDasharray="4,4" />
+                  <line x1="55" y1="175" x2="315" y2="20" stroke="rgba(255, 255, 255, 0.2)" strokeDasharray="4,4" />
 
                   {/* Render Curves */}
                   {Object.entries(analysisResult.rocCurves).map(([name, pts]) => {
@@ -1217,8 +1244,8 @@ export default function QuantumEngine() {
 
                     const pathD = pts
                       .map((p, idx) => {
-                        const sx = 30 + p.fpr * 260;
-                        const sy = 190 - p.tpr * 160;
+                        const sx = 55 + p.fpr * 260;
+                        const sy = 175 - p.tpr * 155;
                         return `${idx === 0 ? "M" : "L"} ${sx} ${sy}`;
                       })
                       .join(" ");
@@ -1237,14 +1264,6 @@ export default function QuantumEngine() {
                     );
                   })}
                 </svg>
-
-                {/* Axis Labels */}
-                <div style={{ position: "absolute", bottom: "4px", left: "50%", transform: "translateX(-50%)", fontSize: "10px", color: "var(--text-muted)" }}>
-                  False Positive Rate (1 - Specificity)
-                </div>
-                <div style={{ position: "absolute", top: "50%", left: "4px", transform: "translateY(-50%) rotate(-90deg)", fontSize: "10px", color: "var(--text-muted)" }}>
-                  True Positive Rate
-                </div>
               </div>
 
               {/* Legends */}
