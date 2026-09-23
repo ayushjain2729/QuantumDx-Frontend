@@ -3283,6 +3283,42 @@ select:focus {
   opacity: 0.9;
 }
 
+/* Quantum Engine Styles & Keyframes */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+.quantum-engine-page .big-circuit {
+  background: rgba(11, 17, 32, 0.9) !important;
+  border: 1px solid rgba(99, 102, 241, 0.25) !important;
+  box-shadow: inset 0 2px 24px rgba(0, 0, 0, 0.6), 0 4px 20px rgba(0, 0, 0, 0.25);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.quantum-engine-page input[type="range"] {
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  cursor: pointer;
+}
+
+.quantum-engine-page input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FFF;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+  cursor: pointer;
+}
+
 /* Print Optimization for Clinical Reports / PDF Export */
 @media print {
   body {

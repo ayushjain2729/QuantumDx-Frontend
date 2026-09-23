@@ -30,6 +30,7 @@ import AnimatedCard from "./components/AnimatedCard";
 import GlowOrb from "./components/GlowOrb";
 import AnimatedCounter from "./components/AnimatedCounter";
 import Pricing from "./components/Pricing";
+import QuantumEngine from "./components/QuantumEngine";
 
 // Generates randomized risk scores strictly within 30% seeded per patient and day
 export const getDailyScore = (id) => {
@@ -832,59 +833,7 @@ function Results({ patientId, setPage, patients, onReviewPatient, onGenerateRepo
 }
 
 function QuantumModel() {
-  return (
-    <div className="page">
-      <motion.div className="hero compact" variants={childVariants}>
-        <div>
-          <p className="eyebrow">QUANTUM ENGINE</p>
-          <h1>Hybrid quantum intelligence</h1>
-          <p>The prototype combines classical preprocessing with quantum feature-space learning.</p>
-        </div>
-      </motion.div>
-      <motion.div
-        className="grid-2"
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-      >
-        <AnimatedCard className="quantum-hero">
-          <div className="atom"><Atom size={64} strokeWidth={1} /></div>
-          <h2>Quantum Feature Space</h2>
-          <p>Selected biomedical features are encoded and transformed through a parameterized multi-qubit circuit.</p>
-          <div className="big-circuit">
-            <span>q₀ ── H ── Rₓ(x₀) ── ● ── M</span>
-            <span>q₁ ── H ── Rᵧ(x₁) ── X ── M</span>
-            <span>q₂ ── H ── Rₓ(x₂) ── ● ── M</span>
-            <span>q₃ ── H ── Rᵧ(x₃) ───── M</span>
-          </div>
-          {/* GlowOrb on Quantum Engine page */}
-          <div style={{ position: 'absolute', top: '50%', right: '-2rem', transform: 'translateY(-50%)', opacity: 0.5 }}>
-            <GlowOrb size={200} />
-          </div>
-        </AnimatedCard>
-        <AnimatedCard>
-          <h3>Prototype Components</h3>
-          <div className="component-list">
-            {[
-              ["1", "Feature Encoding", "Classical data → quantum states"],
-              ["2", "Multi-Qubit Processing", "Interaction and transformation"],
-              ["3", "Quantum Kernel", "Similarity in quantum feature space"],
-              ["4", "QSVM Classifier", "Final risk classification"],
-            ].map(([num, title, desc], i) => (
-              <motion.div
-                key={num}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + i * 0.08, type: "spring", stiffness: 120, damping: 18 }}
-              >
-                <i>{num}</i><span><b>{title}</b><small>{desc}</small></span>
-              </motion.div>
-            ))}
-          </div>
-        </AnimatedCard>
-      </motion.div>
-    </div>
-  );
+  return <QuantumEngine />;
 }
 
 function Benchmarks() {
@@ -1120,7 +1069,7 @@ function App() {
     patients: <Patients setPage={setPage} onReviewPatient={handleReviewPatient} patients={patientList} />,
     analysis: <Analysis setPage={setPage} onReviewPatient={handleReviewPatient} onCompleteAnalysis={handleCompleteAnalysis} />,
     results: <Results patientId={selectedPatientId} setPage={setPage} patients={patientList} onReviewPatient={handleReviewPatient} onGenerateReport={handleGenerateReport} />,
-    quantum: <QuantumModel />,
+    quantum: <QuantumEngine />,
     benchmarks: <Benchmarks />,
     reports: <Reports reports={reportList} onReviewPatient={handleReviewPatient} onGenerateNewReport={handleGenerateReport} onExportPdf={handleExportPdf} />,
     pricing: <Pricing showToast={showToast} />
