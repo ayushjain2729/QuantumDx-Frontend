@@ -884,9 +884,6 @@ export default function QuantumEngine() {
               <span>2 Qubits (Compact)</span>
               <span>8 Qubits (Deep Space)</span>
             </div>
-            <p style={{ fontSize: "12px", color: "var(--text-secondary)", margin: "8px 0 0 0" }}>
-              Top {numQubits} features selected via Mutual Information will be angle-encoded into $q_0 \dots q_{numQubits - 1}$.
-            </p>
           </div>
 
           {/* Slider 2: Train / Test Split */}
@@ -910,9 +907,6 @@ export default function QuantumEngine() {
               <span>10% (Holdout)</span>
               <span>40% (Strict)</span>
             </div>
-            <p style={{ fontSize: "12px", color: "var(--text-secondary)", margin: "8px 0 0 0" }}>
-              Train on {Math.round((1 - testSplit) * dataset.length)} samples, validate models on {Math.round(testSplit * dataset.length)} unseen clinical records.
-            </p>
           </div>
 
           {/* Selector 3: Entanglement Architecture */}
@@ -931,9 +925,6 @@ export default function QuantumEngine() {
               <option value="circular">Circular Ring Topology</option>
               <option value="linear">Linear Nearest-Neighbor</option>
             </select>
-            <p style={{ fontSize: "12px", color: "var(--text-secondary)", margin: "8px 0 0 0" }}>
-              Applies 2-qubit CNOT & $R_y(\theta)$ unitary gates to produce quantum feature correlation in Hilbert space.
-            </p>
           </div>
         </div>
 

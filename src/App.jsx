@@ -32,6 +32,14 @@ import AnimatedCounter from "./components/AnimatedCounter";
 import Pricing from "./components/Pricing";
 import QuantumEngine from "./components/QuantumEngine";
 
+// Dynamic greeting based on system local time
+export const getGreeting = () => {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return "Good morning,";
+  if (hour >= 12 && hour < 17) return "Good afternoon,";
+  return "Good evening,";
+};
+
 // Generates randomized risk scores strictly within 30% seeded per patient and day
 export const getDailyScore = (id) => {
   const today = new Date().toDateString();
@@ -202,6 +210,13 @@ function Metric({ label, value, sub, accent = "" }) {
 
 function Dashboard({ setPage, onReviewPatient, patients = initialPatients }) {
   const avgConfidence = "91.8%";
+  const [greeting, setGreeting] = useState(getGreeting);
+
+  useEffect(() => {
+    setGreeting(getGreeting());
+    const timer = setInterval(() => setGreeting(getGreeting()), 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="page">
@@ -220,7 +235,7 @@ function Dashboard({ setPage, onReviewPatient, patients = initialPatients }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 80, damping: 20, delay: 0.15 }}
           >
-            <span>Good morning,</span><em>Doctor.</em>
+            <span>{greeting}</span><em>Doctor.</em>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
