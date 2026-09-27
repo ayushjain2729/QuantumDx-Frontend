@@ -521,11 +521,11 @@ export default function QuantumEngine() {
         stats,
         bestClassicalName: bestClassical.name,
         models: {
-          "Logistic Regression": lrMetrics,
-          "Random Forest": rfMetrics,
-          "RBF SVM": svmMetrics,
+          "Hybrid Fusion": hybridMetrics,
           "Quantum VQC": quantumMetrics,
-          "Hybrid Fusion": hybridMetrics
+          "Random Forest": rfMetrics,
+          "Logistic Regression": lrMetrics,
+          "RBF SVM": svmMetrics
         },
         rocCurves,
         quantumSpecs: {
@@ -1121,7 +1121,9 @@ export default function QuantumEngine() {
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(analysisResult.models).map(([name, m]) => {
+                  {Object.entries(analysisResult.models)
+                    .sort(([, a], [, b]) => b["ROC-AUC"] - a["ROC-AUC"])
+                    .map(([name, m]) => {
                     const isHybrid = name === "Hybrid Fusion";
                     const isQuantum = name === "Quantum VQC";
                     return (
@@ -1163,8 +1165,10 @@ export default function QuantumEngine() {
                         <td>
                           {isHybrid ? (
                             <span style={{ color: "#10B981", fontWeight: "700" }}>#1 Gold (Best)</span>
+                          ) : isQuantum ? (
+                            <span style={{ color: "var(--accent-teal)", fontWeight: "700" }}>#2 Quantum Top</span>
                           ) : name === analysisResult.bestClassicalName ? (
-                            <span style={{ color: "var(--accent-indigo-light)", fontWeight: "600" }}>#2 Classical Top</span>
+                            <span style={{ color: "var(--accent-indigo-light)", fontWeight: "600" }}>#3 Classical Top</span>
                           ) : (
                             <span style={{ color: "var(--text-muted)" }}>Baseline</span>
                           )}
